@@ -1,0 +1,371 @@
+{
+    "$defs": {
+        "Container": {
+            "additionalProperties": true,
+            "properties": {
+                "containerNumber": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Container number. Example: 'C123456789'",
+                    "title": "Containernumber"
+                },
+                "sealNumber": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Seal number. Example: 'SEAL98765'",
+                    "title": "Sealnumber"
+                },
+                "tare": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Container tare weight (kg). Example: 2250.5",
+                    "title": "Tare"
+                },
+                "net": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Net cargo weight (kg). Example: 5000.0",
+                    "title": "Net"
+                },
+                "grossWeight": {
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Total weight including container (kg). Example: 7500.0",
+                    "title": "Grossweight"
+                },
+                "doorType": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Container door type. Example: 'rear', 'fwd'",
+                    "title": "Doortype"
+                },
+                "dropMode": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Container drop mode.Example: 'Sideloader', 'Standard Trailer-Drop Trailer'",
+                    "title": "Dropmode"
+                },
+                "containerSize": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "ISO standards for container size. Allowed values: '40REHC', '40RE', '20RE', '400T', '200T', '20FR', '40FR', '20HC', '40HC', '40GP', '20GP'. Example: '40REHC', '20GP'",
+                    "title": "Containersize"
+                }
+            },
+            "title": "Container",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "jobType": {
+            "description": "Classify job type based on context, possible values: IMPORT, EXPORT",
+            "title": "Jobtype",
+            "type": "string"
+        },
+        "shipmentType": {
+            "description": "Shipment type. Example: 'FCL' (Full Container Load), 'LCL' (Less than Container Load)",
+            "title": "Shipmenttype",
+            "type": "string"
+        },
+        "ReferenceNumber": {
+            "description": "Unique reference number. Example: 'REF12345'",
+            "title": "Referencenumber",
+            "type": "string"
+        },
+        "vessel": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Vessel name. Example: 'MV Oceanic', 'Ever Given'",
+            "title": "Vessel"
+        },
+        "voyage": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Voyage identifier. Example: 'Voyage 123'",
+            "title": "Voyage"
+        },
+        "etd": {
+            "anyOf": [
+                {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Estimated time of departure (ISO 8601). Example: '2024-06-11T10:25:40.834Z",
+            "title": "Etd"
+        },
+        "eta": {
+            "anyOf": [
+                {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Estimated time of arrival (ISO 8601). Example: '2024-06-11T10:25:40.834Z",
+            "title": "Eta"
+        },
+        "agentClient": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Agent or client name. Example: 'Maersk', 'Amazon'",
+            "title": "Agentclient"
+        },
+        "consignClient": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Consignee receiving the shipment. Example: 'XYZ Imports",
+            "title": "Consignclient"
+        },
+        "warehouse": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Warehouse handling storage. Example: 'Warehouse 47'",
+            "title": "Warehouse"
+        },
+        "accountReceivableClient": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "Client responsible for payment. Example: 'Global Finance'",
+            "title": "Accountreceivableclient"
+        },
+        "jobContainers": {
+            "anyOf": [
+                {
+                    "items": {
+                        "$ref": "#/$defs/Container"
+                    },
+                    "type": "array"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null,
+            "description": "A list of container information according to the schema",
+            "title": "Jobcontainers",
+            "items": {
+                "properties": {
+                    "containerNumber": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "Container number. Example: 'C123456789'",
+                        "title": "Containernumber"
+                    },
+                    "sealNumber": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "Seal number. Example: 'SEAL98765'",
+                        "title": "Sealnumber"
+                    },
+                    "tare": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "Container tare weight (kg). Example: 2250.5",
+                        "title": "Tare"
+                    },
+                    "net": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "Net cargo weight (kg). Example: 5000.0",
+                        "title": "Net"
+                    },
+                    "grossWeight": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "Total weight including container (kg). Example: 7500.0",
+                        "title": "Grossweight"
+                    },
+                    "doorType": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "Container door type. Example: 'rear', 'fwd'",
+                        "title": "Doortype"
+                    },
+                    "dropMode": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "Container drop mode.Example: 'Sideloader', 'Standard Trailer-Drop Trailer'",
+                        "title": "Dropmode"
+                    },
+                    "containerSize": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "default": null,
+                        "description": "ISO standards for container size. Allowed values: '40REHC', '40RE', '20RE', '400T', '200T', '20FR', '40FR', '20HC', '40HC', '40GP', '20GP'. Example: '40REHC', '20GP'",
+                        "title": "Containersize"
+                    }
+                },
+                "title": "Container",
+                "type": "object"
+            }
+        }
+    },
+    "required": [
+        "jobType",
+        "shipmentType",
+        "ReferenceNumber"
+    ],
+    "title": "BaseTransportJobInformation",
+    "type": "object"
+}

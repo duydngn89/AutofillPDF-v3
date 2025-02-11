@@ -1,0 +1,90 @@
+{
+    "properties": {
+        "jobType": {
+            "type": "string",
+            "description": "Classify job type. Example: 'IMPORT', 'EXPORT'"
+        },
+        "shipmentType": {
+            "type": "string",
+            "description": "Shipment type. Example: 'FCL' (Full Container Load), 'LCL' (Less than Container Load)"
+        },
+        "referenceNumber": {
+            "type": "string",
+            "description": "Unique reference number. Example: 'REF12345'"
+        },
+        "vessel": {
+            "type": "string",
+            "description": "Vessel name. Example: 'MV Oceanic', 'Ever Given'"
+        },
+        "voyage": {
+            "type": "string",
+            "description": "Voyage identifier. Example: 'VOY123'"
+        },
+        "etd": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Estimated time of departure (ISO 8601). Example: '2024-06-11T10:25:40.834Z'"
+        },
+        "eta": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Estimated time of arrival (ISO 8601). Example: '2024-06-11T10:25:40.834Z'"
+        },
+        "agentClient": {
+            "type": "string",
+            "description": "Agent handling the shipment. Example: 'ABC Logistics'"
+        },
+        "consignClient": {
+            "type": "string",
+            "description": "Consignee receiving the shipment. Example: 'XYZ Imports'"
+        },
+        "warehouseClient": {
+            "type": "string",
+            "description": "Warehouse handling storage. Example: 'Warehouse 47'"
+        },
+        "accountReceivableClient": {
+            "type": "string",
+            "description": "Client responsible for payment. Example: 'Global Finance'"
+        },
+        "jobContainers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "containerNumber": {
+                        "type": "string",
+                        "description": "Container number. Example: 'C123456789'"
+                    },
+                    "sealNumber": {
+                        "type": "string",
+                        "description": "Seal number. Example: 'SEAL98765'"
+                    },
+                    "tare": {
+                        "type": "number",
+                        "description": "Container tare weight (kg). Example: 2250.5"
+                    },
+                    "net": {
+                        "type": "number",
+                        "description": "Net cargo weight (kg). Example: 5000.0"
+                    },
+                    "grossWeight": {
+                        "type": "number",
+                        "description": "Total weight including container (kg). Example: 7500.0"
+                    },
+                    "doorType": {
+                        "type": "string",
+                        "description": "Container door type. Example: 'rear', 'fwd'"
+                    },
+                    "dropMode": {
+                        "type": "string",
+                        "description": "Drop mode. Example: 'Sideloader', 'Standard Trailer-Drop Trailer'"
+                    },
+                    "containerSize": {
+                        "type": "string",
+                        "description": "ISO container size. Example: '20GP', '40HC', '40RE'"
+                    }
+                }
+            }
+        }
+    }
+}
