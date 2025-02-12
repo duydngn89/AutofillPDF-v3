@@ -4,9 +4,9 @@ from API.endpoint import router
 from Route import security, pdf_handle
 
 import uvicorn
-
+from mangum import Mangum
 app = FastAPI(title="AutofillPDF FastAPI App")
-
+handler = Mangum(app)
 
 # CORS Middleware (optional)
 app.add_middleware(
