@@ -1,7 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Deploy FastAPI AI_Agent to Vercel
+name: Deploy FastAPI AI_Agent to Render
 
 on:
   push:
@@ -13,25 +10,28 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
     - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: "3.10"
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Install Vercel CLI
-      run: npm install -g vercel
 
-    - name: Pull Vercel Environment
-      run: vercel pull --yes --environment=production --token ${{ secrets.VERCEL_TOKEN }}
-
-    - name: Deploy to Vercel
-      run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+    - name: Deploy to Render
+      env:
+        RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}
+      run: |
+        curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+        -H "Authorization: Bearer $RENDER_TOKEN" \
+        -H "Accept: application/json" \
+        -H "Content-Type: application/json" \
+        -d '{}'
