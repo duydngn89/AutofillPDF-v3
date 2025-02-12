@@ -1,17 +1,25 @@
 import shutil
-from fastapi import APIRouter, UploadFile, File, HTTPException, Body
+from fastapi import APIRouter, UploadFile, File, HTTPException, Body, Depends
 from typing import Optional
 import os
 from dotenv import load_dotenv
 from Services.FileServices import handle_file_service
 from Model.Pydantic_model import *
+from fastapi.security import HTTPBearer
 from Utils.editSchema import *
 import logging
 import json
+
+
+
 router = APIRouter()
+
+# Load environment variables
 load_dotenv()
 INPUT_FOLDER = os.getenv("UPLOAD_FOLDER")
 
+
+#Default schema for the input of API
 DEFAULT_SCHEMA = {
     "Custom Promt": "",
     "properties": {
@@ -29,6 +37,9 @@ DEFAULT_SCHEMA = {
     },
     "remove_container_fields": ["extraField"]
 }
+reusable_oauth2 = HTTPBearer(
+    scheme_name='Authorization'
+)
 
 
 @router.get("/dump_schema/")
@@ -52,7 +63,7 @@ async def dump_schema():
         logging.error(f"Error in dump_schema: {e}", exc_info=True)
         return {"error": str(e)}
 
-@router.post("/handle_file/")
+@router.post("/handle_file/",dependencies=[Depends(reusable_oauth2)])
 async def handle_file(
     file: UploadFile = File(...),
     custom_schema: Optional[str] = Body(
@@ -79,7 +90,7 @@ async def handle_file(
         return {"error": str(e)}
 
 
-@router.post("/handle_file/import/")
+@router.post("/handle_file/import/",dependencies=[Depends(reusable_oauth2)])
 async def handle_file_import(
     file: UploadFile = File(...),
     custom_schema: Optional[str] = Body(
@@ -112,7 +123,7 @@ async def handle_file_import(
         return {"error": str(e)}
 
 
-@router.post("/handle_file/export/")
+@router.post("/handle_file/export/",dependencies=[Depends(reusable_oauth2)])
 async def handle_file_export(
     file: UploadFile = File(...),
     custom_schema: Optional[str] = Body(
