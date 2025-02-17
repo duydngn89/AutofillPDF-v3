@@ -2,8 +2,8 @@ services:
   - name: fastapi-app
     type: web
     runtime: python
-    region: oregon
+    region: singapore
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-    startCommand: uvicorn src.app.main:app --host 0.0.0.0 --port 10000
+    startCommand: python ./src/app/main.py
