@@ -24,7 +24,7 @@ router = APIRouter()
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Authenticate user and return JWT token."""
     # Dummy authentication (Replace with actual user verification)
-    if form_data.username != "test" or form_data.password != password:
+    if form_data.username != "demo_test" or form_data.password != password:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     
     access_token = create_access_token(data={"sub": form_data.username})

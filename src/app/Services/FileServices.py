@@ -6,6 +6,7 @@ from Utils.pdfToImage import *
 from Services.LLMservices import *
 import logging
 from google.genai import types
+import asyncio
 logging.basicConfig(level=logging.DEBUG)
 # Load environment variables
 load_dotenv()
@@ -32,9 +33,19 @@ async def handle_file_service(user_prompt: str,file: UploadFile, custom_schema: 
                 Note 2: If UNLOCODE port of loading and discharge are not explicitly defined, the value will be infered from the discharge port.
                 """
         # Send the request to Gemini
-        result = await call_gemini_llm(system_prompt, user_prompt, base64_images, custom_schema)
+        try:
+            result = await asyncio.wait_for(
+                call_gemini_llm(system_prompt, user_prompt, base64_images, custom_schema),
+                timeout=120  # Set timeout in seconds
+            )
+        except asyncio.TimeoutError:
+            raise TimeoutError("LLM request timed out.")
 
         return {"aiAgent_response": result}
+    
+    except TimeoutError as te:
+        logging.error(f"Timeout Error in call_gemini_llm: {te}", exc_info=True)
+        return {"error": "LLM request timed out."}
     except Exception as e:
         logging.error(f"Error in handle_file: {e}", exc_info=True)
         return {"error": str(e)}
