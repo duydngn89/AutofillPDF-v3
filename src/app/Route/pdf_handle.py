@@ -21,7 +21,6 @@ INPUT_FOLDER = os.getenv("UPLOAD_FOLDER")
 
 #Default schema for the input of API
 DEFAULT_SCHEMA = {
-    "Custom Prompt": "",
     "properties": {
         "newField": {
             "type": "string",
@@ -66,6 +65,7 @@ async def dump_schema():
 @router.post("/handle_file/",dependencies=[Depends(reusable_oauth2)])
 async def handle_file(
     file: UploadFile = File(...),
+    prompt: Optional[str] = Body("", description="Optional prompt to display to the user."),
     custom_schema: Optional[str] = Body(
         DEFAULT_SCHEMA,
         description="Optional custom JSON schema to override defaults. "
@@ -77,7 +77,7 @@ async def handle_file(
 
         custom_schema = json.loads(custom_schema) if custom_schema else None
 
-        user_prompt = custom_schema.get("Custom Promt", "")
+        user_prompt = prompt
         response_schema = modify_schema(custom_schema)
         if  response_schema is None:
             raise ValueError("Schema modification failed.")
@@ -93,6 +93,7 @@ async def handle_file(
 @router.post("/handle_file/import/",dependencies=[Depends(reusable_oauth2)])
 async def handle_file_import(
     file: UploadFile = File(...),
+    prompt: Optional[str] = Body("", description="Optional prompt to display to the user."),
     custom_schema: Optional[str] = Body(
         DEFAULT_SCHEMA,
         description="Optional custom JSON schema to override defaults. "
@@ -104,7 +105,7 @@ async def handle_file_import(
 
         custom_schema = json.loads(custom_schema) if custom_schema else None
 
-        user_prompt = custom_schema.get("Custom Prompt", "")
+        user_prompt = prompt
         response_schema = modify_schema_import(custom_schema)
         if  response_schema is None:
             raise ValueError("Schema modification failed.")
