@@ -21,7 +21,7 @@ INPUT_FOLDER = os.getenv("UPLOAD_FOLDER")
 
 #Default schema for the input of API
 DEFAULT_SCHEMA = {
-    "Custom Promt": "",
+    "Custom Prompt": "",
     "properties": {
         "newField": {
             "type": "string",
@@ -104,7 +104,7 @@ async def handle_file_import(
 
         custom_schema = json.loads(custom_schema) if custom_schema else None
 
-        user_prompt = custom_schema.get("Custom Promt", "")
+        user_prompt = custom_schema.get("Custom Prompt", "")
         response_schema = modify_schema_import(custom_schema)
         if  response_schema is None:
             raise ValueError("Schema modification failed.")
