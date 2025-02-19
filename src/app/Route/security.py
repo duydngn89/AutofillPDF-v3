@@ -33,4 +33,4 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
 @router.get("/protected",dependencies=[Depends(reusable_oauth2)])
 def protected_route():
     """A protected route that requires authentication."""
-    return {"message": "This is a protected route", "user": "hello"}
+    return {"Connection": "OK", "Authorization": "OK"}
