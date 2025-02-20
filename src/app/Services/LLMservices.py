@@ -43,6 +43,7 @@ async def call_gemini_llm(system_prompt: str,
     )
 
     # Convert Gemini response to dictionary
+    print(response.usage_metadata)
     output: Dict = response.parsed
     
 
