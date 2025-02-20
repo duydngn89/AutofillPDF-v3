@@ -62,7 +62,7 @@ async def dump_schema():
         logging.error(f"Error in dump_schema: {e}", exc_info=True)
         return {"error": str(e)}
 
-@router.post("/handle_file/",dependencies=[Depends(reusable_oauth2)])
+@router.post("/handle_file",dependencies=[Depends(reusable_oauth2)])
 async def handle_file(
     file: UploadFile = File(...),
     prompt: Optional[str] = Body("", description="Optional prompt to display to the user."),
@@ -90,7 +90,7 @@ async def handle_file(
         return {"error": str(e)}
 
 
-@router.post("/handle_file/import/",dependencies=[Depends(reusable_oauth2)])
+@router.post("/handle_file/import",dependencies=[Depends(reusable_oauth2)])
 async def handle_file_import(
     file: UploadFile = File(...),
     prompt: Optional[str] = Body("", description="Optional prompt to display to the user."),
@@ -124,9 +124,10 @@ async def handle_file_import(
         return {"error": str(e)}
 
 
-@router.post("/handle_file/export/",dependencies=[Depends(reusable_oauth2)])
+@router.post("/handle_file/export",dependencies=[Depends(reusable_oauth2)])
 async def handle_file_export(
     file: UploadFile = File(...),
+    prompt: Optional[str] = Body("", description="Optional prompt to display to the user."),
     custom_schema: Optional[str] = Body(
         DEFAULT_SCHEMA,
         description="Optional custom JSON schema to override defaults. "
@@ -138,7 +139,7 @@ async def handle_file_export(
 
         custom_schema = json.loads(custom_schema) if custom_schema else None
 
-        user_prompt = custom_schema.get("Custom Promt", "")
+        user_prompt = prompt
         response_schema = modify_schema_export(custom_schema)
         if  response_schema is None:
             raise ValueError("Schema modification failed.")
