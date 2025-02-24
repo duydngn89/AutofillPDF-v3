@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,date
 from enum import Enum
 from typing import List, Optional
 from pydantic import BaseModel, Field, field_validator,ConfigDict
@@ -106,41 +106,41 @@ class ImportJobInformation(DynamicBaseModel):
     shipmentType: str= Field(...,
                               description="Shipment type. Example: 'FCL' (Full Container Load), 'LCL' (Less than Container Load)")
 
-    cusRefNumber: str= Field(...,description="Customs reference number. Example: 'CUS12345'")
+    referenceNumber: str= Field(...,description="Customs reference number. Example: 'CUS12345'")
 
     vessel: Optional[str]= Field(None,description="Vessel name. Example: 'MV Oceanic', 'Ever Given'")
 
     voyage: Optional[str]= Field(None,description="Voyage identifier. Example: 'Voyage 123'")
 
-    unilocoPortOfLoading: Optional[str]= Field(None,description="UN/LOCODE of the port of loading. Example: 'USLAX'.")
+    unlocoBoardOfLoading: Optional[str]= Field(None,description="UN/LOCODE of the port of loading. Example: 'USLAX'.")
 
-    unilocoPortOfDischarge: Optional[str]= Field(None,description="UN/LOCODE of the port of discharge. Example: 'USLAX'.")
+    unlocoBoardOfDischarge: Optional[str]= Field(None,description="UN/LOCODE of the port of discharge. Example: 'USLAX'.")
 
     etd: Optional[datetime]= Field(None,description="Estimated time of departure (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
     eta: Optional[datetime]= Field(None,description="Estimated time of arrival (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    IMPavailableDate: Optional[datetime]= Field(None,description="Date and time when the import job is available (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    avail: Optional[datetime]= Field(None,description="Date and time when the import job is available (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    IMPstorageStartDate: Optional[datetime]= Field(None,description="Date and time when the import job is stored (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    stor: Optional[datetime]= Field(None,description="Date and time when the import job is stored (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    firstFreeDay: Optional[datetime]= Field(None,description="First free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    firstFreeDay: Optional[date]= Field(None,description="First free day for storage (ISO 8601). Example: '2024-06-11")
 
-    IMPstorageLastFreeDate: Optional[datetime]= Field(None,description="Last free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    storLastFreeDate: Optional[datetime]= Field(None,description="Last free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    ReeferCutoffDate: Optional[datetime]= Field(None,description="Reefer cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    cutOffDate: Optional[datetime]= Field(None,description="Reefer cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    EmptyReceivalDate: Optional[datetime]= Field(None,description="Empty receival date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    emptyReceivalCommencementDate: Optional[datetime]= Field(None,description="Empty receival Commencement date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    EmptyCutoffDate: Optional[datetime]= Field(None,description="Empty cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    emptyCutoffDate: Optional[datetime]= Field(None,description="Empty cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    HazardousCutoffDate: Optional[datetime]= Field(None,description="Hazardous cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    hazardousCutoffDate: Optional[datetime]= Field(None,description="Hazardous cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    HazardousReceivalDate: Optional[datetime]= Field(None,description="Hazardous receival date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    hazardousReceivalCommencementDate: Optional[datetime]= Field(None,description="Hazardous receival date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
     agentClient: Optional[str]= Field(None,
                                        description="Agent or client name. Example: 'Maersk', 'Amazon'")
-    consigneeClient: Optional[str]= Field(None,
+    consignClient: Optional[str]= Field(None,
                                          description="Consignee receiving the shipment. Example: 'XYZ Imports")
     
     warehouse: Optional[str]= Field(None,
