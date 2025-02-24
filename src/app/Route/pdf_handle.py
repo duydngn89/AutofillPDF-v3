@@ -115,8 +115,8 @@ async def handle_file_import(
 
 
         #Remove white space from the response
-        result["aiAgent_response"]["unilocoPortOfDischarge"] = result["aiAgent_response"]["unilocoPortOfDischarge"].replace(" ", "")
-        result["aiAgent_response"]["unilocoPortOfLoading"] = result["aiAgent_response"]["unilocoPortOfLoading"].replace(" ", "")
+        result["aiAgent_response"]["unlocoBoardOfDischarge"] = result["aiAgent_response"]["unlocoBoardOfDischarge"].replace(" ", "")
+        result["aiAgent_response"]["unlocoBoardOfLoading"] = result["aiAgent_response"]["unlocoBoardOfLoading"].replace(" ", "")
         
         return result
     except Exception as e:
