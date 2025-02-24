@@ -124,7 +124,7 @@ class ImportJobInformation(DynamicBaseModel):
 
     stor: Optional[datetime]= Field(None,description="Date and time when the import job is stored (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
-    firstFreeDay: Optional[date]= Field(None,description="First free day for storage (ISO 8601). Example: '2024-06-11")
+    firstFreeDay: Optional[date]= Field(None,description="First free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
     storLastFreeDate: Optional[datetime]= Field(None,description="Last free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
 
