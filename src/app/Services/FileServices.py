@@ -43,8 +43,8 @@ async def handle_file_service(user_prompt: str,file: UploadFile, custom_schema: 
 
             verify_prompt ="""You are an assistant who will verify data format of the structured transport job details from this JSON. Please STRICTLY satisfy the <Requirements>.
                 <Requirements> 
-                - Requirement 1(Very Important):If the field is defined datetime, so Date and time must be in ISO 8601 format. Example: 2022-01-01T00:00:00
-                - Requirement 2:If the field is defined date, Date must be in the format YYYY-MM-DD.
+                - Requirement 1(Very Important):If the field is defined datetime, so Date and time must be in ISO 8601 format, else null you must skip,do not fill. Example: 2022-01-01T00:00:00
+                - Requirement 2:If the field is defined date, Date must be in the format YYYY-MM-DD. else null you must skip, do not fill.
                 </Requirements>
 """
             result = await asyncio.wait_for(
