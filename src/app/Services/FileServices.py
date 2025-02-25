@@ -28,9 +28,11 @@ async def handle_file_service(user_prompt: str,file: UploadFile, custom_schema: 
         base64_images = await pdf_to_parts(pdf_bytes)
         
 
-        system_prompt = """You are an assistant who will extract structured transport job details from the following images which converted from 1 file pdf. Please strictly satisfy the following requirements: 
-                Note 1(Very Important): If multiple containers are present,  MUST structure them as a list and correctly map their details to the schema.
-                Note 2: If UNLOCODE port of loading and discharge are not explicitly defined, the value will be infered from the discharge port.
+        system_prompt = """You are an assistant who will extract structured transport job details from the following images which converted from 1 file pdf. Please STRICTLY satisfy the <Requirements>.
+                <Requirements> 
+                - Requirement 1(Very Important): If multiple containers are present,  MUST structure them as a list and correctly map their details to the schema.
+                - Requirement 2: If UNLOCODE port of loading and discharge are not explicitly defined, the value will be infered from the discharge port and loading port.
+                </Requirements>
                 """
         # Send the request to Gemini
         try:
