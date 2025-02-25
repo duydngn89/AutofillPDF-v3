@@ -158,7 +158,7 @@ class ImportJobInformation(DynamicBaseModel):
         "etd", "eta", "avail", "stor", "storLastFreeDate", "cutOffDate",
         "emptyReceivalCommencementDate", "emptyCutoffDate",
         "hazardousCutoffDate", "hazardousReceivalCommencementDate",
-       mode="before"
+       mode="after"
     )
     def validate_datetime(cls, value, field):
         """ Ensure the datetime is in valid ISO 8601 format """
@@ -170,7 +170,7 @@ class ImportJobInformation(DynamicBaseModel):
         except ValueError:
             raise ValueError(f"Invalid ISO 8601 datetime format for {field.name}: {value}")
 
-    @field_validator("firstFreeDay", mode="before")
+    @field_validator("firstFreeDay", mode="after")
     def validate_date(cls, value, field):
         """ Ensure the date is in valid ISO 8601 format """
         if value is None:
