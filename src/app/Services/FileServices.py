@@ -32,6 +32,7 @@ async def handle_file_service(user_prompt: str,file: UploadFile, custom_schema: 
                 <Requirements> 
                 - Requirement 1(Very Important): If multiple containers are present,  MUST structure them as a list and correctly map their details to the schema.
                 - Requirement 2: If UNLOCODE port of loading and discharge are not explicitly defined, the value will be infered from the discharge port and loading port.
+                - Requirement 3: If file has only a weight, it will be considered as the gross weight of the containers.
                 </Requirements>
                 """
         # Send the request to Gemini
