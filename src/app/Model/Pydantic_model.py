@@ -116,27 +116,27 @@ class ImportJobInformation(DynamicBaseModel):
 
     unlocoBoardOfDischarge: Optional[str]= Field(None,description="UN/LOCODE of the port of discharge. Example: 'USLAX'.")
 
-    etd: Optional[datetime]= Field(None,description="Estimated time of departure (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    etd: Optional[datetime]= Field(None,description="Estimated time of departure (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    eta: Optional[datetime]= Field(None,description="Estimated time of arrival (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    eta: Optional[datetime]= Field(None,description="Estimated time of arrival (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    avail: Optional[datetime]= Field(None,description="Date and time when the import job is available (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    avail: Optional[datetime]= Field(None,description="Date and time when the import job is available (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    stor: Optional[datetime]= Field(None,description="Date and time when the import job is stored (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    stor: Optional[datetime]= Field(None,description="Date and time when the import job is stored (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    firstFreeDay: Optional[date]= Field(None,description="First free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    firstFreeDay: Optional[date]= Field(None,description="First free Day for storage (ISO 8601) (Day only). Example: '2024-06-11")
 
-    storLastFreeDate: Optional[datetime]= Field(None,description="Last free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    storLastFreeDate: Optional[datetime]= Field(None,description="Last free day for storage (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    cutOffDate: Optional[datetime]= Field(None,description="Reefer cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    cutOffDate: Optional[datetime]= Field(None,description="Reefer cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    emptyReceivalCommencementDate: Optional[datetime]= Field(None,description="Empty receival Commencement date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    emptyReceivalCommencementDate: Optional[datetime]= Field(None,description="Empty receival Commencement date (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    emptyCutoffDate: Optional[datetime]= Field(None,description="Empty cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    emptyCutoffDate: Optional[datetime]= Field(None,description="Empty cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    hazardousCutoffDate: Optional[datetime]= Field(None,description="Hazardous cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    hazardousCutoffDate: Optional[datetime]= Field(None,description="Hazardous cutoff date (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
-    hazardousReceivalCommencementDate: Optional[datetime]= Field(None,description="Hazardous receival date (ISO 8601). Example: '2024-06-11T10:25:40.834Z")
+    hazardousReceivalCommencementDate: Optional[datetime]= Field(None,description="Hazardous receival date (ISO 8601). Example: '2024-06-11T10:25:40.834")
 
     agentClient: Optional[str]= Field(None,
                                        description="Agent or client name. Example: 'Maersk', 'Amazon'")
@@ -153,6 +153,33 @@ class ImportJobInformation(DynamicBaseModel):
     jobContainers: Optional[List[Container]] = Field(
         None, description="A list of container information according to the schema"
     )
+
+    @field_validator(
+        "etd", "eta", "avail", "stor", "storLastFreeDate", "cutOffDate",
+        "emptyReceivalCommencementDate", "emptyCutoffDate",
+        "hazardousCutoffDate", "hazardousReceivalCommencementDate",
+        pre=True, always=True
+    )
+    def validate_datetime(cls, value, field):
+        """ Ensure the datetime is in valid ISO 8601 format """
+        if value is None:
+            return value
+        try:
+            # Parse datetime
+            return datetime.fromisoformat(value.replace("Z", ""))  # Remove 'Z' if exists
+        except ValueError:
+            raise ValueError(f"Invalid ISO 8601 datetime format for {field.name}: {value}")
+
+    @field_validator("firstFreeDay", pre=True, always=True)
+    def validate_date(cls, value, field):
+        """ Ensure the date is in valid ISO 8601 format """
+        if value is None:
+            return value
+        try:
+            # Parse date
+            return date.fromisoformat(value)
+        except ValueError:
+            raise ValueError(f"Invalid ISO 8601 date format for {field.name}: {value}")
     
     
 class ExportJobInformation(DynamicBaseModel):

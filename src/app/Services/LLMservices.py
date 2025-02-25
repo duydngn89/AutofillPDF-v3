@@ -36,8 +36,7 @@ async def call_gemini_llm(system_prompt: str,
         contents=contents,
         config={
             "temperature": 0,
-            "top_p": 0.9,
-            "top_k": 15,
+            "top_p": 0.95,
             "response_mime_type": "application/json",
             "response_schema":    custom_schema,
         }
