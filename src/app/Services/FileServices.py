@@ -32,7 +32,6 @@ async def handle_file_service(user_prompt: str,file: UploadFile, custom_schema: 
                 <Requirements> 
                 - Requirement 1(Very Important): If multiple containers are present,  MUST structure them as a list and correctly map their details to the schema.
                 - Requirement 2: If UNLOCODE port of loading and discharge are not explicitly defined, the value will be infered from the discharge port and loading port.
-                - Requirement 3: The datetime and date must follow the ISO 8601 format.
                 </Requirements>
                 """
         # Send the request to Gemini
@@ -43,9 +42,9 @@ async def handle_file_service(user_prompt: str,file: UploadFile, custom_schema: 
             )
 
             verify_prompt ="""You are an assistant who will verify data format of the structured transport job details from this JSON. Please STRICTLY satisfy the <Requirements>.
-            <Requirements> 
-                - Requirement 1(Very Important): Date and time must be in ISO 8601 format. Example: 2022-01-01T00:00:00
-                - Requirement 2: Date must be in the format YYYY-MM-DD.
+                <Requirements> 
+                - Requirement 1(Very Important):If the field is defined datetime, so Date and time must be in ISO 8601 format. Example: 2022-01-01T00:00:00
+                - Requirement 2:If the field is defined date, Date must be in the format YYYY-MM-DD.
                 </Requirements>
 """
             result = await asyncio.wait_for(
