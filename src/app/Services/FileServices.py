@@ -41,6 +41,17 @@ async def handle_file_service(user_prompt: str,file: UploadFile, custom_schema: 
                 call_gemini_llm(system_prompt, user_prompt, base64_images, custom_schema),
                 timeout=120  # Set timeout in seconds
             )
+
+            verify_prompt ="""You are an assistant who will verify data format of the structured transport job details from this JSON. Please STRICTLY satisfy the <Requirements>.
+            <Requirements> 
+                - Requirement 1(Very Important): Date and time must be in ISO 8601 format. Example: 2022-01-01T00:00:00
+                - Requirement 2: Date must be in the format YYYY-MM-DD.
+                </Requirements>
+"""
+            result = await asyncio.wait_for(
+                call_gemini_llm(verify_prompt, user_prompt, None, custom_schema),
+                timeout=120  # Set timeout in seconds
+            )
         except asyncio.TimeoutError:
             raise TimeoutError("LLM request timed out.")
 

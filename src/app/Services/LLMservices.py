@@ -26,8 +26,9 @@ async def call_gemini_llm(system_prompt: str,
     contents.append({"role": "user", "parts": [{"text": user_prompt}]})
 
     # Append each base64 image URL
-    for part in image_parts:
-        contents.append({"role": "user", "parts": [part]})
+    if image_parts:
+        for part in image_parts:
+            contents.append({"role": "user", "parts": [part]})
     
    
     
@@ -47,7 +48,9 @@ async def call_gemini_llm(system_prompt: str,
     output: Dict = response.parsed
     
 
-    return output  
+    return output 
+
+
 
 
     
